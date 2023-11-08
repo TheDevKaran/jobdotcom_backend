@@ -6,7 +6,7 @@ const {verifyAndAuthorization, verifyToken, verifyAndAdmin}= require("../middlew
 
 // Update User
 
-router.put("/", verifyAndAuthorization, userController.updateUser);
+router.put("/:id", verifyAndAuthorization, userController.updateUser);
 
 // Delete User
 
