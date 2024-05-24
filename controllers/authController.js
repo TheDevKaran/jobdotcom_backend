@@ -38,9 +38,8 @@ const hashedPassword=CryptoJS.AES.encrypt(req.body.password, process.env.SECRET)
                 username:user.username,
                 isAdmin:user.isAdmin
             },process.env.JWT_SEC);
-            console.log(token);
             const{password, __v, ...others} = user._doc;
-            res.status(200).json({...others,token}); 
+            res.status(200).json({...others,userToken:token}); 
         }catch(error){
             res.status(500)
 

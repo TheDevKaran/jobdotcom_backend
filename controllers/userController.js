@@ -9,7 +9,7 @@ module.exports = {
         }
         try{
             const updateUser = await User.findByIdAndUpdate(
-                req.user.id,{
+                req.params.id,{
                     $set: req.body
                 }, {new: true}
             );
