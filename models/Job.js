@@ -10,7 +10,7 @@ const JobSchema = new mongoose.Schema(
         contract: {type: String, required: true},
         requirements: {type: Array, required:true},
         imageUrl: {type: String, required: true},
-        aganetId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: "User"},
+        agentId: {type: mongoose.Schema.Types.ObjectId, required: true, ref: "User"},
     }, {timestamps: true}
   );
   module.exports = mongoose.model("Job", JobSchema);
