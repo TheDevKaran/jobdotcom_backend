@@ -19,4 +19,4 @@ app.use("/api/users", userRoute);
 app.use("/api/jobs", jobRoute);
 app.use("/api/bookmarks", bookMarkRoute);
 
-app.listen(process.env.PORT || 5002, () => console.log(`Example app listening on port ${process.env.PORT}!`))
+app.listen(process.env.PORT || 3002, () => console.log(`Example app listening on port ${process.env.PORT}!`))
