@@ -32,70 +32,70 @@ app.use("/api/messages", messageRoute);
 
  server = app.listen(process.env.PORT || 5002, () => console.log(`Example app listening on port ${process.env.PORT}!`));
 
-// const io = require('socket.io')(server,
-//     {
-//         pingTimeout: 60000,
-//         cors: {
-//             // origin: "http:localhost:5001",
-//             origin: "https://jobdotcom-backend.vercel.app",
-//         },
-//     });
+const io = require('socket.io')(server,
+    {
+        pingTimeout: 60000,
+        cors: {
+            // origin: "http:localhost:5001",
+            origin: "https://jobdotcom-backend.vercel.app",
+        },
+    });
 
-// io.on("connection", (socket) => {
-//     console.log("connected to sockets");
+io.on("connection", (socket) => {
+    console.log("connected to sockets");
 
-//     socket.on('setup', (userId) => {
-//         socket.join(userId);
-//         socket.broadcast.emit('online-users', userId)
-//         console.log(userId);
+    socket.on('setup', (userId) => {
+        socket.join(userId);
+        socket.broadcast.emit('online-users', userId)
+        console.log(userId);
 
-//     });
+    });
 
-//     socket.on("typing", (room) => {
-//         console.log('typing');
-//         console.log(room);
-//         socket.to(room).emit("typing", room)
-//     });
-//     socket.on("stop typing", (room) => {
-//         console.log('stopped typing');
-//         console.log(room);
-//         socket.to(room).emit("stop typing", room)
-//     });
+    socket.on("typing", (room) => {
+        console.log('typing');
+        console.log(room);
+        socket.to(room).emit("typing", room)
+    });
+    socket.on("stop typing", (room) => {
+        console.log('stopped typing');
+        console.log(room);
+        socket.to(room).emit("stop typing", room)
+    });
 
-//     socket.on('join chat', (room) => {
-//         socket.join(room);
-//         console.log('User Joined Room :' + room);
-//     });
+    socket.on('join chat', (room) => {
+        socket.join(room);
+        console.log('User Joined Room :' + room);
+    });
 
-//     socket.on("new message", (newMessageReceived) => {
+    socket.on("new message", (newMessageReceived) => {
 
-//         var chat = newMessageReceived.chat;
-//         var room = chat._id;
+        var chat = newMessageReceived.chat;
+        var room = chat._id;
 
-//         var sender = newMessageReceived.sender;
-//         var receiver = newMessageReceived.receiver;
+        var sender = newMessageReceived.sender;
+        var receiver = newMessageReceived.receiver;
 
-//         if (!sender || !sender._id) {
-//             console.log("Sender not defined or missing _id property");
-//             return;
-//         }
+        if (!sender || !sender._id) {
+            console.log("Sender not defined or missing _id property");
+            return;
+        }
 
-//         var senderId = sender._id;
-//         console.log(senderId + "sender");
-//         const users = chat.users;
+        var senderId = sender._id;
+        console.log(senderId + "sender");
+        const users = chat.users;
 
-//         if (!users) {
-//             console.log("Chat users not defined");
-//             return;
-//         }
+        if (!users) {
+            console.log("Chat users not defined");
+            return;
+        }
 
-//         socket.to(room).emit("message received", newMessageReceived);
-//         socket.to(room).emit("message sent", "New Message");
+        socket.to(room).emit("message received", newMessageReceived);
+        socket.to(room).emit("message sent", "New Message");
 
-//     });
+    });
 
-//     socket.off("setup", () => {
-//         console.log("USER DISCONNECTED");
-//         socket.leave(userId);
-//     });
-// })
+    socket.off("setup", () => {
+        console.log("USER DISCONNECTED");
+        socket.leave(userId);
+    });
+})
